@@ -15,7 +15,7 @@ const logoutHAndler = () => {
   return (
    <nav className="header">
 
-    <Link onClick={() => setIsOpen(false)} to={"/"}>Home</Link>
+    <Link onClick={() => setIsOpen(false)} to={"/"}>HOME</Link>
     <Link onClick={() => setIsOpen(false)} to={"/search"}><FaSearch /></Link>
     <Link onClick={() => setIsOpen(false)} to={"/cart"}><FaShoppingBag /></Link>
 {
