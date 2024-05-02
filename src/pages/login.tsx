@@ -4,31 +4,44 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../firebase";
+import { useLoginMutation } from "../redux/api/userAPI";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
+import { messageResponse } from "../types/api-types";
 
 const Login = () => {
   const [gender, setGender] = useState("");
   const [date, setDate] = useState("");
 
+  const [login] = useLoginMutation();
+
   const loginHandler = async () => {
-  
-    try{
+    try {
       const provider = new GoogleAuthProvider();
-
-      console.log(provider);
-
       const result = await signInWithPopup(auth, provider);
-
-      console.log(result);
-
       const user = result.user;
 
+      const res = await login({
+        name: user.displayName!,
+        email: user.email!,
+        photo: user.photoURL!,
+        gender,
+        role: "user",
+        dob: date,
+        _id: user.uid,
+      });
+
+      if ("data" in res) {
+        toast.success(res.data.message);
+      } else {
+        const error = res.error as FetchBaseQueryError;
+        const message = (error.data as messageResponse).message;
+        toast.error(message);
+      }
+
       console.log(user);
- 
+    } catch (error) {
+      toast.error("Sing In Failed");
     }
-    catch(error){
-      toast.error("Sing In Failed")
-    }
-   
   };
 
   return (
