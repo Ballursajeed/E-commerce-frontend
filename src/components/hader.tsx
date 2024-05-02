@@ -1,46 +1,59 @@
-import { Link } from "react-router-dom"
-import { FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa"
+import { Link } from "react-router-dom";
+import {
+  FaSearch,
+  FaShoppingBag,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUser,
+} from "react-icons/fa";
 import { useState } from "react";
 
-const user = {_id: "748474",role:"admin"};
+const user = { _id: "", role: "" };
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-const [isOpen, setIsOpen] = useState<boolean>(false);
-
-const logoutHAndler = () => {
+  const logoutHAndler = () => {
     setIsOpen(false);
-}
+  };
 
   return (
-   <nav className="header">
-
-    <Link onClick={() => setIsOpen(false)} to={"/"}>HOME</Link>
-    <Link onClick={() => setIsOpen(false)} to={"/search"}><FaSearch /></Link>
-    <Link onClick={() => setIsOpen(false)} to={"/cart"}><FaShoppingBag /></Link>
-{
-    user?._id?(
+    <nav className="header">
+      <Link onClick={() => setIsOpen(false)} to={"/"}>
+        HOME
+      </Link>
+      <Link onClick={() => setIsOpen(false)} to={"/search"}>
+        <FaSearch />
+      </Link>
+      <Link onClick={() => setIsOpen(false)} to={"/cart"}>
+        <FaShoppingBag />
+      </Link>
+      {user?._id ? (
         <>
-         <button onClick={() => setIsOpen((prev) => !prev)}>
-            <FaUser/>
-         </button>
-         <dialog open = {isOpen}>
+          <button onClick={() => setIsOpen((prev) => !prev)}>
+            <FaUser />
+          </button>
+          <dialog open={isOpen}>
             <div>
-                {user.role === "admin" && (
-                    <Link to="/admin/dashboard">Admin</Link>
-                )}
-            <Link onClick={() => setIsOpen(false)} to="/orders">Orders</Link>
-            <button onClick={logoutHAndler}>
-                <FaSignOutAlt/>
-            </button>
+              {user.role === "admin" && (
+                <Link to="/admin/dashboard">Admin</Link>
+              )}
+              <Link onClick={() => setIsOpen(false)} to="/orders">
+                Orders
+              </Link>
+              <button onClick={logoutHAndler}>
+                <FaSignOutAlt />
+              </button>
             </div>
-         </dialog>
-        </> 
-    ) : ( <Link onClick={() => setIsOpen(false)} to={"/login"}><FaSignInAlt /></Link> )
-}
+          </dialog>
+        </>
+      ) : (
+        <Link onClick={() => setIsOpen(false)} to={"/login"}>
+          <FaSignInAlt />
+        </Link>
+      )}
+    </nav>
+  );
+};
 
-   </nav>
-  )
-}
-
-export default Header
+export default Header;
