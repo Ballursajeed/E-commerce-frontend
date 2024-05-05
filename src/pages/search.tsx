@@ -1,7 +1,17 @@
 import { useState } from "react";
 import ProductCard from "../components/product-card";
+import { useCategoriesQuery } from "../redux/api/productApi";
+import toast from "react-hot-toast";
+import { customError } from "../types/api-types";
 
 const Search = () => {
+  const {
+    data: categoriesResponse,
+    isLoading: LoadingCategories,
+    isError,
+    error,
+  } = useCategoriesQuery("");
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [maxPrice, setMaxPrice] = useState(100000);
@@ -12,6 +22,11 @@ const Search = () => {
 
   const isPrevPage = page > 1;
   const isNextPage = page < 4;
+
+  if (isError) {
+    const err = error as customError;
+    toast.error(err.data.message);
+  }
 
   return (
     <div className="product-search-page">
@@ -42,9 +57,13 @@ const Search = () => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="">All</option>
-            <option value="">Sapmle1</option>
-            <option value="">Sample2</option>
+            <option value="">ALL</option>
+            {!LoadingCategories &&
+              categoriesResponse?.categories.map((i) => (
+                <option key={i} value={i}>
+                  {i.toUpperCase()}
+                </option>
+              ))}
           </select>
         </div>
       </aside>

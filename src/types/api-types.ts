@@ -23,3 +23,9 @@ export type productResponse = {
   products: Product[];
 };
 
+export type categoriesResponse = {
+  success: boolean;
+  categories: string[];
+};
+
+
