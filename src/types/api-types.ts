@@ -1,12 +1,12 @@
 import { Product, User } from "./types";
 
 export type customError = {
-  status:number;
-  data:{
-    message:string;
-    success:boolean;
-  }
-}
+  status: number;
+  data: {
+    message: string;
+    success: boolean;
+  };
+};
 
 export type messageResponse = {
   success: boolean;
@@ -28,4 +28,14 @@ export type categoriesResponse = {
   categories: string[];
 };
 
+export type searchProductResponse = productResponse & {
+  totalPage: number;
+};
 
+export type searchProductRequest = {
+  price:number;
+  page:number;
+  category:string;
+  search:string;
+  sort:string;
+};
