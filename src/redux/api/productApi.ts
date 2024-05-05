@@ -7,8 +7,13 @@ export const productAPI = createApi({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product/`,
   }),
   endpoints: (builder) => ({
-    latestProducts: builder.query<productResponse,string>({ query: () => "latest" }),
+    latestProducts: builder.query<productResponse, string>({
+      query: () => "latest",
+    }),
+    allProducts: builder.query<productResponse, string>({
+      query: (id) => `admin-products?id=${id}`,
+    }),
   }),
 });
 
-export const { useLatestProductsQuery } = productAPI;
+export const { useLatestProductsQuery,useAllProductsQuery } = productAPI;
