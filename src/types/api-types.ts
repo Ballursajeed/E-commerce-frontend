@@ -49,3 +49,14 @@ export type newProductRequest = {
   id: string;
   formData: FormData;
 };
+
+export type updateProductRequest = {
+  userId: string;
+  productId: string;
+  formData: FormData;
+};
+
+export type deleteProductRequest = {
+  userId: string;
+  productId: string;
+};
