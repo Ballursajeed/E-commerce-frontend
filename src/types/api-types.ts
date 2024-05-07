@@ -33,9 +33,19 @@ export type searchProductResponse = productResponse & {
 };
 
 export type searchProductRequest = {
-  price:number;
-  page:number;
-  category:string;
-  search:string;
-  sort:string;
+  price: number;
+  page: number;
+  category: string;
+  search: string;
+  sort: string;
+};
+
+export type productDeatails = {
+  success: boolean;
+  product: Product;
+};
+
+export type newProductRequest = {
+  id: string;
+  formData: FormData;
 };
