@@ -57,6 +57,15 @@ const Productmanagement = () => {
     }
   };
 
+  const deleteHandler = async () => {
+    const res = await deleteProduct({
+      userId: user?._id!,
+      productId: data?.product._id!,
+    });
+
+    responseToast(res, navigate, "/admin/product");
+  };
+
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -107,7 +116,7 @@ const Productmanagement = () => {
               <h3>₹{price}</h3>
             </section>
             <article>
-              <button className="product-delete-btn">
+              <button className="product-delete-btn" onClick={deleteHandler}>
                 <FaTrash />
               </button>
               <form onSubmit={submitHandler}>
