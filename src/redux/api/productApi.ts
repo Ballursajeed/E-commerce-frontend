@@ -73,7 +73,7 @@ export const productAPI = createApi({
 });
  
 export const { 
-   useLatestProductsQuery,
+  useLatestProductsQuery,
   useAllProductsQuery,
   useCategoriesQuery,
   useSearchProductsQuery,
