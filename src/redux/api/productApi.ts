@@ -71,9 +71,9 @@ export const productAPI = createApi({
     }),
   }),
 });
-
-export const {
-  useLatestProductsQuery,
+ 
+export const { 
+   useLatestProductsQuery,
   useAllProductsQuery,
   useCategoriesQuery,
   useSearchProductsQuery,
