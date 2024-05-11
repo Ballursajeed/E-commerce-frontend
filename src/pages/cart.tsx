@@ -42,21 +42,28 @@ const Cart = () => {
   };
 
   useEffect(() => {
+    const { token: cancelToken, cancel } = axios.CancelToken.source();
+
     const timeOutId = setTimeout(() => {
       axios
-        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`)
+        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
+          cancelToken,
+        })
         .then((res) => {
-          dispatch(discountApplied(res.data.discount))
+          dispatch(discountApplied(res.data.discount));
           setIsValid(true);
+          dispatch(calculatePrice());
         })
         .catch(() => {
-          dispatch(discountApplied(0))
+          dispatch(discountApplied(0));
           setIsValid(false);
+          dispatch(calculatePrice());
         });
     }, 1000);
 
     return () => {
       clearTimeout(timeOutId);
+      cancel();
       setIsValid(false);
     };
   }, [couponCode]);
