@@ -1,18 +1,36 @@
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
-import CartItem from "../components/cart-item";
+import CartItemCard from "../components/cart-item";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartReducerInitialState } from "../types/reducer-types";
-
+import { CartItem } from "../types/types";
+import { addToCart, removeCartItem } from "../redux/reducer/cartReducer";
 
 const Cart = () => {
-  const {cartItems,subTotal,tax,total,shippingCharges,discount} = useSelector((state:{
-    cartReducer:cartReducerInitialState
-  }) => state.cartReducer);
+  const { cartItems, subTotal, tax, total, shippingCharges, discount } =
+    useSelector(
+      (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+    );
+
+  const dispatch = useDispatch();
 
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
+
+  const increamentHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity >= cartItem.stock) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+
+  const decreamentHandler = (cartItem: CartItem) => {
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+
+  const removeHandler = (productId: string) => {
+    dispatch(removeCartItem(productId));
+  };
 
   useEffect(() => {
     const timeOutId = setTimeout(() => {
@@ -30,7 +48,15 @@ const Cart = () => {
     <div className="cart">
       <main>
         {cartItems.length > 0 ? (
-          cartItems.map((i, index) => <CartItem key={index} cartItem={i} />)
+          cartItems.map((i, index) => (
+            <CartItemCard
+              increamentHandler={increamentHandler}
+              decreamentHandler={decreamentHandler}
+              removeHandler={removeHandler}
+              key={index}
+              cartItem={i}
+            />
+          ))
         ) : (
           <h1>No Items Added</h1>
         )}
