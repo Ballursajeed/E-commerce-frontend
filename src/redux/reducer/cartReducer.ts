@@ -41,7 +41,20 @@ export const cartReducer = createSlice({
       );
       state.loading = false;
     },
+
+    calculatePrice: (state) => {
+      const subTotal = state.cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+
+      state.subTotal = subTotal;
+      state.shippingCharges = state.subTotal > 1000 ? 0 : 2000;
+      state.tax = Math.round(state.subTotal * 0.18);
+      state.total =
+        state.subTotal + state.tax + state.shippingCharges - state.discount;
+    },
   },
 });
 
-export const { addToCart, removeCartItem } = cartReducer.actions;
+export const { addToCart, removeCartItem,calculatePrice } = cartReducer.actions;
