@@ -13,8 +13,6 @@ import { Order, OrderItem } from "../../../types/types";
 import { Skeleton } from "../../../components/loader";
 import { responseToast } from "../../../utils/features";
 
-const orderItems: any[] = [];
-
 const defaultData: Order = {
   shippingInfo: {
     address: "",
