@@ -1,14 +1,14 @@
 import { ReactElement, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
-import { userReducerInitialState } from "../../types/reducer-types";
-import { useSelector } from "react-redux";
-import { useAllOrderQuery } from "../../redux/api/orderApi";
-import toast from "react-hot-toast";
-import { customError } from "../../types/api-types";
 import { Skeleton } from "../../components/loader";
+import { useAllOrderQuery } from "../../redux/api/orderApi";
+import { customError } from "../../types/api-types";
+import { userReducerInitialState } from "../../types/reducer-types";
 
 interface DataType {
   user: string;
