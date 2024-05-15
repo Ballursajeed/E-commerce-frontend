@@ -1,22 +1,27 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import axios from "axios";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BiArrowBack } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { server } from "../redux/store";
 import { cartReducerInitialState } from "../types/reducer-types";
+import { saveShippingInfo } from "../redux/reducer/cartReducer";
 
 const Shipping = () => {
-  const { cartItems } = useSelector(
+  const { cartItems, total } = useSelector(
     (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
   );
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [shippingInfo, setShippingInfo] = useState({
     address: "",
     city: "",
     state: "",
     country: "",
-    pinCode: "",
+    pinCode: 0,
   });
 
   const changeHandler = (
@@ -29,13 +34,40 @@ const Shipping = () => {
     if (cartItems.length <= 0) return navigate("/cart");
   }, [cartItems]);
 
+  const submintHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(saveShippingInfo(shippingInfo));
+
+    try {
+      const { data } = await axios.post(
+        `${server}/api/v1/payment/create`,
+        {
+          amount: total,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      navigate("/pay", {
+        state: data.clientSecret,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong!");
+    }
+  };
+
   return (
     <div className="shipping">
       <button className="back-btn" onClick={() => navigate("/cart")}>
         <BiArrowBack />
       </button>
 
-      <form action="">
+      <form onSubmit={submintHandler}>
         <h1> Shipping Address</h1>
         <input
           required
