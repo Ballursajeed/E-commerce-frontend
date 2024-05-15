@@ -6,8 +6,8 @@ import { Column } from "react-table";
 import TableHOC from "../components/admin/TableHOC";
 import { Skeleton } from "../components/loader";
 import { useMyOrdersQuery } from "../redux/api/orderApi";
+import { RootState } from "../redux/store";
 import { customError } from "../types/api-types";
-import { userReducerInitialState } from "../types/reducer-types";
 
 type DataType = {
   _id: string;
@@ -33,7 +33,7 @@ const column: Column<DataType>[] = [
 const Orders = () => {
 
   const { user } = useSelector(
-    (state: { userReducer: userReducerInitialState }) => state.userReducer
+    (state: RootState ) => state.userReducer
   );
 
   const { isLoading, error, isError, data } = useMyOrdersQuery(user?._id!);

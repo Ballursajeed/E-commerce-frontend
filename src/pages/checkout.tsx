@@ -7,18 +7,15 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { newOrderRequest } from "../types/api-types";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useNewOrderMutation } from "../redux/api/orderApi";
 import { resetCart } from "../redux/reducer/cartReducer";
-import { responseToast } from "../utils/features";
 import { RootState } from "../redux/store";
+import { newOrderRequest } from "../types/api-types";
+import { responseToast } from "../utils/features";
 
-
-const stripePromise = loadStripe(
-  "pk_test_51PBbZ6SJj5KzsCH0rSmfaTRjakOVObipYyBB13NolXZaoG92O2OIY2mjcXKB3vBHO0KN0aJT2ZHngnz830BYscTh00deTtALTO"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const CheckoutForm = () => {
   const stripe = useStripe();
