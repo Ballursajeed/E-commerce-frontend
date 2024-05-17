@@ -1,24 +1,21 @@
-def dfs(adjList,starting,visited=None):
+def dfs(adjList,start,visited=None):
     if visited is None:
         visited = set()
         
-    visited.add(starting)
-    print(starting, end=" ")
+    visited.add(start)
+    print(start,end=' ')
     
-    for neighbour in adjList[starting]:
-        if neighbour not in visited:
-            dfs(adjList,neighbour,visited)
+    
+    for ng in adjList[start]:
+        if ng not in visited:
+            dfs(adjList,ng,visited)
             
-
-adjList = {
-    0:[1,2],
-    2:[1,0,3],
-    1:[2],
-    3:[2],
+adjList= {
+     0: [1, 2],
+    1: [2],
+    2: [0, 3],
+    3: [3]
 }
 
-print("DFS travelsel from the vertex 2 is :")
-
 dfs(adjList,2)
-
-
+    
