@@ -56,7 +56,10 @@ const PieCharts = () => {
                   labels={categories.map((i) => Object.keys(i)[0])}
                   data={categories.map((i) => Object.values(i)[0])}
                   backgroundColor={categories.map(
-                    (i) => `hsl(${454 * 4}, ${45}%, 50%)`
+                    (i) =>
+                      `hsl(${Object.values(i)[0] * Math.random() * 4}, ${
+                        Object.values(i)[0]
+                      }%, 50%)`
                   )}
                   legends={false}
                   offset={[0, 0, 0, 80]}
