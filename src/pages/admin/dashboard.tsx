@@ -76,8 +76,8 @@ const Dashboard = () => {
               <div className="revenue-chart">
                 <h2>Revenue & Transaction</h2>
                 <BarChart
-                  data_2={[300, 144, 433, 655, 237, 755, 190]}
-                  data_1={[200, 444, 343, 556, 778, 455, 990]}
+                  data_1={stats.chart.revenue}
+                  data_2={stats.chart.order}
                   title_1="Revenue"
                   title_2="Transaction"
                   bgColor_1="rgb(0, 115, 255)"
@@ -109,7 +109,7 @@ const Dashboard = () => {
                 <h2>Gender Ratio</h2>
                 <DoughnutChart
                   labels={["Female", "Male"]}
-                  data={[12, 19]}
+                  data={[stats.userRatio.female, stats.userRatio.male]}
                   backgroundColor={[
                     "hsl(340, 82%, 56%)",
                     "rgba(53, 162, 235, 0.8)",
@@ -150,11 +150,11 @@ const WidgetItem = ({
       <h4>{amount ? `₹${value}` : value}</h4>
       {percent > 0 ? (
         <span className="green">
-          <HiTrendingUp /> + {`${percent > 10000 ? 9999: percent}%`}
+          <HiTrendingUp /> + {`${percent > 10000 ? 9999 : percent}%`}
         </span>
       ) : (
         <span className="red">
-          <HiTrendingDown /> {`${percent < -10000 ? -9999: percent}%`}
+          <HiTrendingDown /> {`${percent < -10000 ? -9999 : percent}%`}
         </span>
       )}
     </div>
@@ -173,8 +173,8 @@ const WidgetItem = ({
           color,
         }}
       >
-        {percent > 0 && `${percent > 10000 ? 9999: percent}%`}
-        {percent < 0 && `${percent < -10000 ? -9999: percent}%`}
+        {percent > 0 && `${percent > 10000 ? 9999 : percent}%`}
+        {percent < 0 && `${percent < -10000 ? -9999 : percent}%`}
       </span>
     </div>
   </article>
