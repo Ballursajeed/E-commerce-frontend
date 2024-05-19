@@ -19,7 +19,7 @@ const NewProduct = () => {
   const [photo, setPhoto] = useState<File>();
 
   const [newproduct] = useNewProductMutation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
@@ -37,22 +37,21 @@ const NewProduct = () => {
     }
   };
 
-  const submitHandler = async(e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-     if(!name || !price || !stock || !photo || !category) return;
+    if (!name || !price || stock < 0 || !photo || !category) return;
 
-      const formData = new FormData()
-      formData.set("name",name);
-      formData.set("price",price.toString());
-      formData.set("stock",stock.toString());
-      formData.set("photo",photo);
-      formData.set("category",category);
+    const formData = new FormData();
+    formData.set("name", name);
+    formData.set("price", price.toString());
+    formData.set("stock", stock.toString());
+    formData.set("photo", photo);
+    formData.set("category", category);
 
-      const res = await newproduct({id:user?._id! , formData});
+    const res = await newproduct({ id: user?._id!, formData });
 
-         responseToast(res,navigate,"/admin/product")
-
+    responseToast(res, navigate, "/admin/product");
   };
 
   return (

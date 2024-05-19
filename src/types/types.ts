@@ -82,7 +82,7 @@ export type Stats = {
   latestTransactions: LatestTransactions[];
 };
 
-type RevenueDistribution =  {
+type RevenueDistribution = {
   netMargin: number;
   discount: number;
   productionCost: number;
@@ -107,4 +107,17 @@ export type Pie = {
     adult: number;
     old: number;
   };
+};
+
+export type Bar = {
+  users: number[];
+  products: number[];
+  orders: number[];
+};
+
+export type Line = {
+  users: number[];
+  products: number[];
+  discount: number[];
+  revenue: number[];
 };

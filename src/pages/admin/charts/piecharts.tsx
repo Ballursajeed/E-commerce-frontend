@@ -1,12 +1,11 @@
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { DoughnutChart, PieChart } from "../../../components/admin/Charts";
-import { useSelector } from "react-redux";
-import { usePieQuery } from "../../../redux/api/dashboardApi";
-import toast from "react-hot-toast";
-import { customError } from "../../../types/api-types";
 import { Skeleton } from "../../../components/loader";
+import { usePieQuery } from "../../../redux/api/dashboardApi";
 import { RootState } from "../../../redux/store";
-import { or } from "firebase/firestore";
+import { customError } from "../../../types/api-types";
 
 const PieCharts = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
@@ -57,7 +56,7 @@ const PieCharts = () => {
                   data={categories.map((i) => Object.values(i)[0])}
                   backgroundColor={categories.map(
                     (i) =>
-                      `hsl(${Object.values(i)[0] * Math.random() * 4}, ${
+                      `hsl(${Object.values(i)[0] * 4}, ${
                         Object.values(i)[0]
                       }%, 50%)`
                   )}
