@@ -15,8 +15,6 @@ const Search = () => {
   const {
     data: categoriesResponse,
     isLoading: LoadingCategories,
-    isError,
-    error,
   } = useCategoriesQuery("");
 
   const [search, setSearch] = useState("");
