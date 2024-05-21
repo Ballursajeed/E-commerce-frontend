@@ -17,7 +17,7 @@ import { responseToast } from "../utils/features";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
-const CheckoutForm = () => {
+const CheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const CheckoutForm = () => {
 
     if (error) {
       setIsProcessing(false);
-      return toast.error(error.message || "Something went wrong");
+      return toast.error(error.message || "Something Went Wrong");
     }
 
     if (paymentIntent.status === "succeeded") {
@@ -72,10 +72,8 @@ const CheckoutForm = () => {
       dispatch(resetCart());
       responseToast(res, navigate, "/orders");
     }
-
     setIsProcessing(false);
   };
-
   return (
     <div className="checkout-container">
       <form onSubmit={submitHandler}>
@@ -93,7 +91,7 @@ const Checkout = () => {
 
   const clientSecret: string | undefined = location.state;
 
-  if (!clientSecret) <Navigate to={"/shipping"} />;
+  if (!clientSecret) return <Navigate to={"/shipping"} />;
 
   return (
     <Elements
@@ -102,7 +100,7 @@ const Checkout = () => {
       }}
       stripe={stripePromise}
     >
-      <CheckoutForm />
+      <CheckOutForm />
     </Elements>
   );
 };
