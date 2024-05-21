@@ -53,7 +53,7 @@ const Shipping = () => {
       );
 
       navigate("/pay", {
-        state: data.clientSecret,
+        state: data.clientSecrete,
       });
     } catch (error) {
       console.log(error);
